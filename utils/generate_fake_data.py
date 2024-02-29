@@ -5,14 +5,14 @@ from helpers import load_config
 import shutil
 from deltalake.writer import write_deltalake
 
-cfg_path = "/home/meredith/apps/cap/utils/config.yaml"
+cfg_path = "/home/dslab/code/Hn/test/utils/config.yaml"
 if __name__ == "__main__": 
     start_ts = '26-09-2022'
     end_ts = '25-09-2023'
 
     # Features to generate
     features = ['pressure', 'velocity', 'speed']
-    df = pd.read_parquet("/home/meredith/apps/cap/utils/output.parquet")
+    df = pd.read_parquet("/home/dslab/code/Hn/test/utils/output.parquet")
     cfg = load_config(cfg_path)
     fake_data_cfg = cfg["fake_data"]
     num_files = fake_data_cfg['num_files']
