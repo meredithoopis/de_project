@@ -1,7 +1,6 @@
 version: "3.9"
 services:
-  # Distributed query engine for various types
-  # of data sources
+
   trino:
     ports:
       - "8080:8080"
@@ -14,21 +13,18 @@ services:
     depends_on:
       - hive-metastore
 
-  # We use PostgreSQL to store Hive metadata about
-  # how the datafile are mapped to schemas and tables
   metastore_db:
     container_name: datalake-metastore-db
     image: postgres:11
     hostname: metastore_db
     ports:
-      - '5433:5432' # Access via Thrift protocol
+      - '5434:5432' # Access via Thrift protocol
     environment:
       POSTGRES_USER: hive
       POSTGRES_PASSWORD: hive
       POSTGRES_DB: metastore
 
-  # Expose service to get metadata, which is a repository of metadata about the tables, 
-  # such as database names, table names, schema and data location of each table
+
   hive-metastore:
     container_name: datalake-hive-metastore
     image: 'starburstdata/hive:3.1.2-e.18'
@@ -40,14 +36,12 @@ services:
       HIVE_METASTORE_JDBC_URL: jdbc:postgresql://metastore_db:5432/metastore
       HIVE_METASTORE_USER: hive
       HIVE_METASTORE_PASSWORD: hive
-      # HIVE_METASTORE_WAREHOUSE_DIR: s3://datalake/ # HDFS config, we don't need it
-      # HIVE_METASTORE_USERS_IN_ADMIN_ROLE: "admin" # We also don't need it
+
       S3_ENDPOINT: http://minio:9000
       S3_ACCESS_KEY: minio_access_key
       S3_SECRET_KEY: minio_secret_key
       S3_PATH_STYLE_ACCESS: "true"
-      # Below arguments exist for no reasons, but
-      # we can not live without it
+
       REGION: ""
       GOOGLE_CLOUD_KEY_FILE_PATH: ""
       AZURE_ADL_CLIENT_ID: ""
@@ -65,7 +59,7 @@ services:
     depends_on:
       - metastore_db
       
-  # Parquet files stored in MinIO object storage
+
   minio:
     image: minio/minio
     container_name: datalake-minio
@@ -173,7 +167,7 @@ services:
       CONNECT_PLUGIN_PATH: '/usr/share/java,/etc/kafka-connect/jars'
 
     volumes:
-      - /home/meredith/apps/cap/jars:/etc/kafka-connect/jars
+      - /home/dslab/code/Hn/test/jars:/etc/kafka-connect/jars
 
   # Confluent control center to manage Kafka
   control-center:
@@ -210,9 +204,9 @@ services:
     command: postgres -c shared_preload_libraries=timescaledb
     container_name: flink-timescaledb
     ports:
-      - "5432:5432"
+      - "5433:5433"
     healthcheck:
-      test: ['CMD', 'psql', '-U', 'k6', '-c', 'SELECT 1']
+      test: ['CMD', 'psql', '-U', 'helen', '-c', 'SELECT 1']
       interval: 10s
       timeout: 5s
       retries: 5
@@ -228,7 +222,7 @@ services:
   kafka_producer:
     build:
       context: .
-      dockerfile: /home/meredith/apps/cap/kafka_producer/Dockerfile
+      dockerfile: /home/dslab/code/Hn/test/kafka_producer/Dockerfile
     depends_on:
       broker:
         condition: service_healthy
