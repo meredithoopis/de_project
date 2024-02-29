@@ -1,0 +1,22 @@
+minio==7.1.16
+PyYAML==6.0.1
+deltalake==0.10.2
+confluent-kafka==2.2.0
+apache-flink==1.17.1
+pyspark
+python-dotenv
+pydeequ 
+
+#In dockerfile 
+kafka-python==2.0.2
+avro==1.11.1
+pandas
+pyarrow
+python-schema-registry-client==2.4.1
+pymongo
+
+#Airflow 
+apache-airflow==2.7.1
+apache-airflow-providers-postgres==5.6.1
+airflow-provider-great-expectations==0.2.6
+apache-airflow-providers-docker==3.7.5

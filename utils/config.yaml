@@ -1,0 +1,10 @@
+fake_data: 
+  folder_path: /home/meredith/apps/cap/data/taxi-data
+  num_files: 5
+
+datalake: 
+  endpoint: localhost:9001 
+  bucket_name: taxi 
+  folder_name: taxi-data 
+  access_key: minio_access_key 
+  secret_key: minio_secret_key 
