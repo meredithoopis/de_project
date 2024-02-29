@@ -3,7 +3,7 @@ from helpers import load_config
 from glob import glob 
 import os 
 
-cfg_path = "/home/meredith/apps/cap/utils/config.yaml"
+cfg_path =  "/home/dslab/code/Hn/test/utils/config.yaml"
 
 
 def main():
@@ -22,7 +22,7 @@ def main():
         print(f'Bucket taxi already exists, skip creating!')
 
     # put object.
-    local_folder = "/home/meredith/apps/cap/data/taxi-data"
+    local_folder = "/home/dslab/code/Hn/test/data/taxi-data"
     minio_bucket = 'taxi' 
 
     for root, _, files in os.walk(local_folder):
