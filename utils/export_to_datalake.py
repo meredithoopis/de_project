@@ -3,7 +3,7 @@ from helpers import load_config
 from glob import glob 
 import os 
 
-cfg_file = "/home/meredith/apps/cap/utils/config.yaml"
+cfg_file = "/home/dslab/code/Hn/test/utils/config.yaml"
 def main(): 
     config = load_config(cfg_file)
     datalake_cfg = config['datalake']
@@ -20,8 +20,8 @@ def main():
     else: 
         print(f"Bucket {datalake_cfg['bucket_name']} already exists")
     
-    parquet_files = glob(os.path.join("/home/meredith/apps/cap/data/taxi-data", "*.parquet"))
-    json_files = glob(os.path.join("/home/meredith/apps/cap/data/taxi-data", "**", "*.json"), recursive=True)
+    parquet_files = glob(os.path.join("/home/dslab/code/Hn/test/data/taxi-data", "*.parquet"))
+    json_files = glob(os.path.join("/home/dslab/code/Hn/test/data/taxi-data", "**", "*.json"), recursive=True)
     for file in parquet_files: 
         print(f"Uploading {file}")
         client.fput_object(
