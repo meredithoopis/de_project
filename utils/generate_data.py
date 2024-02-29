@@ -4,9 +4,10 @@ import os
 import pyarrow.parquet as pq
 
 #PyArrow can be used to transform data between different formats and data types.
-parquet_dir = "/home/meredith/apps/cap/utils/output.parquet"
+parquet_dir = "/home/dslab/code/Hn/test/utils/output.parquet"
+
 #New parquet files with Delta Lake logs 
-output_dir = "/home/meredith/apps/cap/utils/data/taxi_combined"
+output_dir = "home/dslab/code/Hn/test/utils/data/taxi_combined"
 
 if not os.path.exists(output_dir): 
     os.makedirs(output_dir)
