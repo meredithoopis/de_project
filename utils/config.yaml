@@ -1,5 +1,5 @@
 fake_data: 
-  folder_path: /home/meredith/apps/cap/data/taxi-data
+  folder_path: /home/dslab/code/Hn/test/data/taxi-data
   num_files: 5
 
 datalake: 
