@@ -2,54 +2,71 @@ Beginner data engineering project
 ===============================
 
 This is a simple, for-beginner project for learning to orchestrate a data pipeline. Tech stack used: Spark, Kafka, Deltalake,Trino, Airflow, Postgres.  
+Data can be downloaded at this link: (Link)[https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page]
 
 ### Requirements
-- Python 3.9.12
+- Python 3.9.12(Other python versions are yet to be tested)
 - Docker + Docker Compose 
 
-### How-to
-Clone this repository and run: 
-```bash 
-cd scr
-```
-Install required packages: 
+## How-to
+Clone this repository  and install required packages: 
 ```bash 
 pip install -r requirements.txt
 ```
-Running Docker to start all services, go to the corresponding port to check Spark master: 
+
+###Run docker-compose to start the datalake: 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
-
-1. You can use the already crawled data or run the following command to crawl new data: 
-
+1. Push data to Minio: 
+You can either access (localhost:9001)[https://localhost:9001] to upload files or push the data manually to Minio through running the following command: 
 ```bash
-python crawl.py
+
 ```
-
-2. Go to the spark-master terminal to stream data through Socket: 
-
+2. Access the trino container to create a database:
 ```bash
-docker exec -it spark-master /bin/bash
+docker exec -it datalake-trino bash
 ```
-After that, run the following: 
+After that, run the following in the terminal: 
 ```bash 
-cd jobs 
+CREATE SCHEMA IF NOT EXISTS lakehouse.taxi
+WITH (location = 's3://taxi/');
+
+CREATE TABLE IF NOT EXISTS lakehouse.taxi.taxi (
+  VendorID VARCHAR(50),
+  tpep_pickup_datetime VARCHAR (50),
+  tpep_dropoff_datetime VARCHAR (50),
+  passenger_count DECIMAL,
+  trip_distance DECIMAL,
+  RatecodeID DECIMAL, 
+  store_and_fwd_flag VARCHAR(50), 
+  PULocationID VARCHAR(50),
+  DOLocationID VARCHAR(50), 
+  payment_type VARCHAR(50), 
+  fare_amount DECIMAL, 
+  extra DECIMAL, 
+  mta_tax DECIMAL, 
+  tip_amount DECIMAL, 
+  tolls_amount DECIMAL, 
+  improvement_surcharge VARCHAR(50),
+  total_amount DECIMAL,
+  congestion_surcharge DECIMAL, 
+  Airport_fee DECIMAL
+) WITH (
+  location = 's3://taxi/part0'
+);
+```
+3. Check Kafka service by going through (localhost:9021)[localhost:9021] 
+4. Check Airflow service, run the following commands: 
+```bash
+cd pipeline
 ```
 and 
 ```
-python streaming-socket.py 
+docker compose up -d
 ```
 
-4. Aggregating data using Spark and streamed to Kafa: Open another terminal and run:
 
-```bash
-docker exec -it spark-master spark-submit --master spark://spark-master:7077 --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0 jobs/spark-streaming.py
-```
-
-<details>
-
-<summary>Illustrations</summary>
 
 ### Checking the topic in Kafka 
 ![confluent.png](imgs%2Fconfluent.png)
