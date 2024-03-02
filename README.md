@@ -2,27 +2,29 @@ Beginner data engineering project
 ===============================
 
 This is a simple, for-beginner project for learning to orchestrate a data pipeline. Tech stack used: Spark, Kafka, Deltalake,Trino, Airflow, Postgres.  
-Data can be downloaded at this link: (Link)[https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page]
+Data can be downloaded at this link: [Link](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
 
 ### Requirements
 - Python 3.9.12(Other python versions are yet to be tested)
 - Docker + Docker Compose 
 
 ## How-to
-Clone this repository  and install required packages: 
+Clone this repository  and install the required packages: 
 ```bash 
 pip install -r requirements.txt
 ```
 
-###Run docker-compose to start the datalake: 
+Run docker-compose to start the data lake service: 
 ```bash
 docker compose up -d
 ```
-1. Push data to Minio: 
-You can either access (localhost:9001)[https://localhost:9001] to upload files or push the data manually to Minio through running the following command: 
-```bash
 
+1. Push data to Minio: 
+You can either access [localhost:9001](https://localhost:9001) to upload files or push the data manually to Minio by running the following command: 
+```bash
+python utils/upload_folder.py
 ```
+![minio.png](imgs%2Fminio.png)
 2. Access the trino container to create a database:
 ```bash
 docker exec -it datalake-trino bash
@@ -56,7 +58,8 @@ CREATE TABLE IF NOT EXISTS lakehouse.taxi.taxi (
   location = 's3://taxi/part0'
 );
 ```
-3. Check Kafka service by going through (localhost:9021)[localhost:9021] 
+3. Check Kafka service by going through [localhost:9021](localhost:9021)
+![kafka.png](imgs%2kafka.png)
 4. Check Airflow service, run the following commands: 
 ```bash
 cd pipeline
@@ -67,13 +70,6 @@ docker compose up -d
 ```
 
 
-
-### Checking the topic in Kafka 
-![confluent.png](imgs%2Fconfluent.png)
-
-### Checking the indice in Elasticsearch cloud
-![elastic.png](imgs%2Felastic.png)
-</details>
 
 
 
