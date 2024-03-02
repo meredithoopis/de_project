@@ -18,7 +18,7 @@ services:
     image: postgres:11
     hostname: metastore_db
     ports:
-      - '5434:5432' # Access via Thrift protocol
+      - '5434:5432'
     environment:
       POSTGRES_USER: hive
       POSTGRES_PASSWORD: hive
@@ -30,7 +30,7 @@ services:
     image: 'starburstdata/hive:3.1.2-e.18'
     hostname: hive-metastore
     ports:
-      - '9083:9083' # Access via Thrift protocol
+      - '9083:9083' 
     environment:
       HIVE_METASTORE_DRIVER: org.postgresql.Driver
       HIVE_METASTORE_JDBC_URL: jdbc:postgresql://metastore_db:5432/metastore
@@ -65,7 +65,7 @@ services:
     container_name: datalake-minio
     hostname: minio
     ports:
-      # - "9000:9000"
+
       - "9001:9001"
     volumes:
       - minio_storage:/data
@@ -77,7 +77,7 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
-    # hostname: zookeeper
+
     container_name: flink-zookeeper
     ports:
       - "2181:2181"
@@ -172,7 +172,7 @@ services:
   # Confluent control center to manage Kafka
   control-center:
     image: confluentinc/cp-enterprise-control-center:7.5.0
-    # hostname: control-center
+
     container_name: flink-control-center
     depends_on:
       - broker
@@ -188,15 +188,12 @@ services:
     environment:
       CONTROL_CENTER_BOOTSTRAP_SERVERS: 'broker:29092'
       CONTROL_CENTER_CONNECT_CONNECT-DEFAULT_CLUSTER: 'connect:8083'
-      # CONTROL_CENTER_KSQL_KSQLDB1_URL: "http://ksqldb-server:8088"
-      # CONTROL_CENTER_KSQL_KSQLDB1_ADVERTISED_URL: "http://localhost:8088"
       CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
       CONTROL_CENTER_REPLICATION_FACTOR: 1
       CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
-      # CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONTROL_CENTER_CONNECT_HEALTHCHECK_ENDPOINT: '/connectors'
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
-      # PORT: 9021
+
 
   # Offline store
   timescaledb:
