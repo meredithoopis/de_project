@@ -25,6 +25,7 @@ You can either access [localhost:9001](https://localhost:9001) to upload files o
 python utils/upload_folder.py
 ```
 ![minio.png](imgs%2Fminio.png)
+
 2. Access the trino container to create a database:
 ```bash
 docker exec -it datalake-trino bash
@@ -59,7 +60,9 @@ CREATE TABLE IF NOT EXISTS lakehouse.taxi.taxi (
 );
 ```
 3. Check Kafka service by going through [localhost:9021](localhost:9021)
+
 ![kafka.png](imgs%2kafka.png)
+
 4. Check Airflow service, run the following commands: 
 ```bash
 cd pipeline
