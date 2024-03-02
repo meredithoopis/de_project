@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS lakehouse.taxi.taxi (
 ```
 3. Check Kafka service by going through [localhost:9021](localhost:9021)
 
-![kafka.png](imgs%2kafka.png)
+![kafka.png](imgs%2Fkafka.png)
 
 4. Check Airflow service, run the following commands: 
 ```bash
