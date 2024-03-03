@@ -1,7 +1,8 @@
 Beginner data engineering project
 ===============================
 
-This is a simple, for-beginner project for learning to orchestrate a data pipeline. Tech stack used: Spark, Kafka, Deltalake,Trino, Airflow, Postgres.  
+This is a simple, for-beginner project for learning to orchestrate a data pipeline. \
+Tech stack used: Spark, Kafka, Deltalake,Trino, Airflow, Postgres.  \ 
 Data can be downloaded at this link: [Link](https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
 
 ### Requirements
